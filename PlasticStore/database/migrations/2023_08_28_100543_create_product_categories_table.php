@@ -16,12 +16,12 @@ class CreateProductCategoriesTable extends Migration
         Schema::create('product_categories', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('subcategory_id');
-            $table->unsignedBigInteger('subprocess_id');
+            $table->unsignedBigInteger('sub_category_id');
+            $table->unsignedBigInteger('sub_process_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
-            $table->foreign('subprocess_id')->references('id')->on('subprocess')->onDelete('cascade');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
+            $table->foreign('sub_process_id')->references('id')->on('sub_process')->onDelete('cascade');
             $table->primary(['product_id']);
             $table->timestamps();
         });

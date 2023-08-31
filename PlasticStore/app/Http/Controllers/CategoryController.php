@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\SubProcess;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,8 +16,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::all();
+        $subcategory = SubCategory::all()->groupBy('category_id');
+        // $subprocess = SubProcess::all()->groupBy('category_id');
+        return view('main.category', compact('category','subcategory'));
     }
+
+    // public function indexCust(){
+    //     $category = Category::all();
+    //     return view('main.category',compact('category'));
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -46,7 +56,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('main.category', compact('category'));
     }
 
     /**
