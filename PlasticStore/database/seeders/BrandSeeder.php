@@ -16,25 +16,25 @@ class BrandSeeder extends Seeder
     public function run()
     {
         DB::table('brands')->insert([
-            'image' => 'innoplus.jpg',
+            'image' => 'innoplus.png',
             'name' => 'INNOPLUS',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('brands')->insert([
-            'image' => 'gettel.jpg',
+            'image' => 'gettel.jpeg',
             'name' => 'Gettel',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('brands')->insert([
-            'image' => 'bm.jpg',
+            'image' => 'bm.png',
             'name' => 'BM',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('brands')->insert([
-            'image' => 'billion.jpg',
+            'image' => 'billion.png',
             'name' => 'Billion',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

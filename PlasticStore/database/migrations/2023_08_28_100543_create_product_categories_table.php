@@ -21,7 +21,7 @@ class CreateProductCategoriesTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
-            $table->foreign('sub_process_id')->references('id')->on('sub_process')->onDelete('cascade');
+            $table->foreign('sub_process_id')->references('id')->on('sub_processes')->onDelete('cascade');
             $table->primary(['product_id']);
             $table->timestamps();
         });

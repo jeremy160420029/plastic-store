@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubProcessController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +35,6 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
 Route::resource("categories", CategoryController::class);
+Route::resource("brands", BrandController::class);
+Route::resource("process", SubProcessController::class);
+

@@ -13,7 +13,7 @@ class CreateSubprocessTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_process', function (Blueprint $table) {
+        Schema::create('sub_processes', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateSubprocessTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subprocess');
+        Schema::dropIfExists('sub_processes');
     }
 }

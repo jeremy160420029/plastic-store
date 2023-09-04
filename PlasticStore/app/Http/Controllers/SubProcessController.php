@@ -14,7 +14,9 @@ class SubProcessController extends Controller
      */
     public function index()
     {
-        //
+        $process = SubProcess::all();
+        // $subprocess = SubProcess::all()->groupBy('category_id');
+        return view('main.process', compact('process'));
     }
 
     /**
