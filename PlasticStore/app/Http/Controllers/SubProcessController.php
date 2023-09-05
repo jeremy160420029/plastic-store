@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\SubProcess;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,9 @@ class SubProcessController extends Controller
      */
     public function show(SubProcess $subProcess)
     {
-        //
+        // dd($subProcess);
+        $product = Product::where('sub_processes_id', $subProcess->id)->get();
+        return view('main.productlist', compact('product'));
     }
 
     /**

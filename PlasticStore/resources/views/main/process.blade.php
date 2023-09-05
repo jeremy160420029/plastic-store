@@ -38,7 +38,7 @@
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                   <h5 class="card-title">{{$p->name}}</h5>
-                                  <a href="#" class="btn btn-primary">Lihat Proses Pengolahan</a>
+                                  <a href="{{ route('sub_processes.show', $p->id) }}" class="btn btn-primary">Lihat Proses Pengolahan</a>
                                 </div>
                               </div>
                             <!-- /.post-header -->

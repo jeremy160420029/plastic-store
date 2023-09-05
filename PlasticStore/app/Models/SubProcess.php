@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class SubProcess extends Model
 {
     use HasFactory;
+
+    public function subcategories(){
+        return $this->belongsToMany(SubCategory::class,"product_categories", "sub_processes_id", "sub_categories_id");
+    }
+
+    public function products(){
+        return $this->hasMany(Product::class, "sub_processes_id", "id");
+    }
 }

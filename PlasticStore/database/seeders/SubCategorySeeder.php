@@ -18,25 +18,25 @@ class SubCategorySeeder extends Seeder
         //PE
         DB::table('sub_categories')->insert([
             'name' => 'HDPE',
-            'category_id' => 1,
+            'categories_id' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'LLDPE',
-            'category_id' => 1,
+            'categories_id' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'LDPE',
-            'category_id' => 1,
+            'categories_id' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'MLLDPE',
-            'category_id' => 1,
+            'categories_id' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -44,19 +44,19 @@ class SubCategorySeeder extends Seeder
         //PP
         DB::table('sub_categories')->insert([
             'name' => 'PP Homo',
-            'category_id' => 2,
+            'categories_id' => 2,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'PP Block Copo',
-            'category_id' => 2,
+            'categories_id' => 2,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'PP Random Copo',
-            'category_id' => 2,
+            'categories_id' => 2,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -64,19 +64,19 @@ class SubCategorySeeder extends Seeder
         //PS
         DB::table('sub_categories')->insert([
             'name' => 'GPPS',
-            'category_id' => 3,
+            'categories_id' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'HIPS',
-            'category_id' => 3,
+            'categories_id' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'EPS',
-            'category_id' => 3,
+            'categories_id' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -84,7 +84,7 @@ class SubCategorySeeder extends Seeder
         //PET
         DB::table('sub_categories')->insert([
             'name' => 'PET',
-            'category_id' => 4,
+            'categories_id' => 4,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -92,7 +92,7 @@ class SubCategorySeeder extends Seeder
         //PC
         DB::table('sub_categories')->insert([
             'name' => 'PC',
-            'category_id' => 5,
+            'categories_id' => 5,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -100,7 +100,7 @@ class SubCategorySeeder extends Seeder
         //ABS
         DB::table('sub_categories')->insert([
             'name' => 'PA 6',
-            'category_id' => 6,
+            'categories_id' => 6,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -108,7 +108,7 @@ class SubCategorySeeder extends Seeder
         //EVA
         DB::table('sub_categories')->insert([
             'name' => 'ABS',
-            'category_id' => 7,
+            'categories_id' => 7,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -116,7 +116,7 @@ class SubCategorySeeder extends Seeder
         //NYLON
         DB::table('sub_categories')->insert([
             'name' => 'EVA',
-            'category_id' => 8,
+            'categories_id' => 8,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -124,7 +124,7 @@ class SubCategorySeeder extends Seeder
         //PVC
         DB::table('sub_categories')->insert([
             'name' => 'PVC Resin',
-            'category_id' => 9,
+            'categories_id' => 9,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -132,20 +132,20 @@ class SubCategorySeeder extends Seeder
         //FILM
         DB::table('sub_categories')->insert([
             'name' => 'BOPP',
-            'category_id' => 10,
+            'categories_id' => 10,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'BOPET',
-            'category_id' => 10,
+            'categories_id' => 10,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
 
         ]);
         DB::table('sub_categories')->insert([
             'name' => 'BOPA',
-            'category_id' => 10,
+            'categories_id' => 10,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);

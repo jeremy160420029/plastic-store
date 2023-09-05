@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\SubCategory;
-use App\Models\SubProcess;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -16,10 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-        $subcategory = SubCategory::all()->groupBy('category_id');
+        $categories = Category::all();
+        $subcategories = SubCategory::all()->groupBy('categories_id');
         // $subprocess = SubProcess::all()->groupBy('category_id');
-        return view('main.category', compact('category','subcategory'));
+        return view('main.category', compact('categories', 'subcategories'));
     }
 
     // public function indexCust(){
@@ -52,12 +52,16 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Category  $category
+     * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Category $category, SubCategory $subCategory)
     {
-        return view('main.category', compact('category'));
+        // dd($category, $subCategory);
+        $product = Product::where("categories_id", $category->id)->where("sub_categories_id", $subCategory->id)->get();
+        return view('main.productlist', compact('product'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

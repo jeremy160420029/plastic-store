@@ -33,31 +33,34 @@
             <div class="grid grid-view projects-masonry shop mb-13">
                 <div class="row gx-md-8 gy-10 gy-md-13 isotope">
 
-                    @foreach ($category as $c)
+                    @foreach ($categories as $c)
                         <div class="project item col-md-6 col-xl-4">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $c->name }}</h5>
-                                    @if ($subcategory->has($c->id))
-                                        @foreach ($subcategory[$c->id] as $sc)
-                                            {{-- <h6 class="card-subtitle mb-2 text-muted">{{ $sc->name }}</h6> --}}
+                                    @if (isset($subcategories[$c->id]))
+                                        @foreach ($subcategories[$c->id] as $sc)
                                             <ul>
-                                                <li><a href="/{{$sc->id}}" class="card-link">{{ $sc->name }}</a></li>
+                                                <li><a href="{{ route('categories.show', ['category' => $c, 'subCategory' => $sc]) }}"
+                                                        class="card-link">{{ $sc->name }}</a></li>
+                                                {{-- <li><a href="{{ route('sub_categories',$sc->id)}}"
+                                                        class="card-link">{{ $sc->name }}</a></li> --}}
                                             </ul>
                                         @endforeach
                                     @endif
                                 </div>
                             </div>
-                            {{-- <figure class="rounded mb-6">
+                        </div>
+                        {{-- <figure class="rounded mb-6">
                     <a href="{{route('products.show',$c->id)}}">
                         <img src="{{asset("/assets/img/products/".$p->img_url)}}" alt="" class="img-fluid" />
                     </a>
                 </figure> --}}
-                            {{-- <div class="post-header">
+                        {{-- <div class="post-header">
                 <div class="d-flex flex-row align-items-center justify-content-between mb-2">
                     <div class="post-category text-ash mb-0">{{$c->name}}</div>
                 </div> --}}
-                            {{-- <div class="d-flex flex-row align-items-center justify-content-between mb-2">
+                        {{-- <div class="d-flex flex-row align-items-center justify-content-between mb-2">
                     <div class="post-category text-ash mb-0">{{$p->type->name}}</div>
                 </div>
                 <div class="d-flex flex-row align-items-center justify-content-between mb-2">
@@ -66,8 +69,8 @@
                 <h2 class="post-title h3 fs-22"><a href="{{route('products.show',$p->id)}}" class="link-dark">{{Str::ucfirst($p->name)}}</a></h2>
                 <p class="price"><span class="amount">@currency($p->price)</span></p>
                 </div> --}}
-                            <!-- /.post-header -->
-                        </div>
+                        <!-- /.post-header -->
+                        {{-- </div> --}}
                         <!-- /.item -->
                     @endforeach
                 </div>

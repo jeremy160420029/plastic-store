@@ -18,12 +18,17 @@ class CreateProductsTable extends Migration
             $table->string('image', 1000);
             $table->string('name');
             $table->string('description');
-            $table->integer('price');
-            $table->unsignedBigInteger('brand_id');
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->double('price');
+            $table->unsignedBigInteger('brands_id');
+            $table->unsignedBigInteger('categories_id');
+            $table->unsignedBigInteger('sub_categories_id');
+            $table->unsignedBigInteger('sub_processes_id');
+            $table->foreign('brands_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('sub_categories_id')->references('id')->on('sub_categories')->onDelete('cascade');
+            $table->foreign('sub_processes_id')->references('id')->on('sub_processes')->onDelete('cascade');
             $table->string('manufacturer');
-            $table->string('processed');
-            $table->integer('total_sales')->default(0);
+            $table->double('total_sales')->default(0);
             $table->timestamps();
         });
     }

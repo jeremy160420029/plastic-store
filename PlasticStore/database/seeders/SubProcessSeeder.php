@@ -110,5 +110,10 @@ class SubProcessSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
+        DB::table('sub_processes')->insert([
+            'name' => 'Blown Film',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
     }
 }

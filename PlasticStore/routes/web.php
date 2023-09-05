@@ -7,7 +7,12 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SubProcessController;
+use App\Models\Product;
+use App\Models\SubCategory;
+use App\Models\SubProcess;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +40,10 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
 Route::resource("categories", CategoryController::class);
+Route::resource("sub_categories", SubCategoryController::class);
 Route::resource("brands", BrandController::class);
-Route::resource("process", SubProcessController::class);
+Route::resource("sub_processes", SubProcessController::class);
+Route::resource("products", ProductController::class);
+
+Route::get('/categories/{category}/{subCategory}', [CategoryController::class, 'show'])->name('categories.show');
 

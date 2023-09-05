@@ -18,10 +18,10 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('payment_method');
             $table->string('ship_city');
-            $table->decimal('delivery_fee', 18, 2);
-            $table->decimal('total_price', 18, 2);
-            $table->decimal('tax', 8, 2);
-            $table->decimal('total_final', 18, 2);
+            $table->double('delivery_fee');
+            $table->double('total_price');
+            $table->double('tax');
+            $table->double('total_final');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

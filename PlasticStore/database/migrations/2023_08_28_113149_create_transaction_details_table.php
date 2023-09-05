@@ -18,7 +18,7 @@ class CreateTransactionDetailsTable extends Migration
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('quantity');
-            $table->decimal('price', 10, 2);
+            $table->double('price');
             $table->timestamps();
 
             $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade');

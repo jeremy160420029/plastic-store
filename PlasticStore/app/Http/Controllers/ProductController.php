@@ -14,7 +14,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = Product::all();
+        return view('main.productlist', compact('product'));
+    }
+
+    public function indexCat($id){
+        $product = Product::where("sub_categories_id", $id)->get();
+        return view('main.productlist', compact('product'));
     }
 
     /**
@@ -46,7 +52,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('main.product', compact('product'));
     }
 
     /**

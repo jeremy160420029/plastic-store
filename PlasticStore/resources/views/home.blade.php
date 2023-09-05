@@ -15,11 +15,9 @@
                             data-words="PE - Polyethylene.,PP - Polypropylene.,PS - Polystyrene.,PET - Polyethylene Terephthalate.,
                             PC - Polycarbonate.,NYLON.,ABS - Acrylonitrile Butadiene Styrene.,EVA.,PVC.,Film."></span><span
                             class="cursor text-primary" data-owner="typer"></span></h1>
-                    {{-- <p class="lead fs-23 mb-7">Jadikan penampilan Anda tak terlupakan dengan pilihan fashion eksklusif yang
-                        akan meningkatkan gaya Anda ke level berikutnya.</p> --}}
                     <div class="d-flex justify-content-center justify-content-lg-start mb-4" data-cues="slideInDown"
                         data-group="page-title-buttons" data-delay="900">
-                        <span><a class="btn btn-lg btn-primary rounded-pill me-2 scroll" href="#demos">Lihat Semua
+                        <span><a class="btn btn-primary btn-icon btn-icon-start rounded-pill me-2" href="{{ url('products') }}">Lihat Semua
                                 Product</a></span>
                     </div>
                 </div>
@@ -136,7 +134,7 @@
 
                 <div class="d-flex justify-content-center" data-cues="slideInDown" data-group="join" data-delay="900">
                     <span><a class="btn btn-lg btn-primary rounded-pill mx-1"
-                            href="{{ url('process') }}">Process</a></span>
+                            href="{{ url('sub_processes') }}">Process</a></span>
                 </div>
                 <!-- /div -->
                 {{-- <div class="row mt-12" data-cue="fadeIn" data-delay="1600">

@@ -52,7 +52,7 @@
                                     <a class="nav-link" href="{{url("brands")}}">Brands</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url("process")}}">Process</a>
+                                    <a class="nav-link" href="{{url("sub_processes")}}">Process</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url("products")}}">Products</a>
