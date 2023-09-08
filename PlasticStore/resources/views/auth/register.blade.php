@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-body p-11 text-center">
                         <h2 class="mb-3 text-start">Buat Akun</h2>
-                        <form class="text-start mb-3" method="POST" action="{{ route('register.post') }}">
+                        <form class="text-start mb-3" method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="form-floating mb-4">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="name">
@@ -70,6 +70,20 @@
 
                                 <span class="password-toggle"><i class="uil uil-eye"></i></span>
                                 <label for="loginPasswordConfirm">Konfirmasi Password</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input id="phone_number" type="number"
+                                    class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
+                                    value="{{ old('phone_number') }}" required autocomplete="phone_number" autofocus
+                                    placeholder="Nomor Telepon">
+
+                                <label for="loginEmail">Nomor Telepon</label>
+
+                                @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary rounded-pill btn-login w-100 mb-2">
                                 {{ __('Daftar') }}

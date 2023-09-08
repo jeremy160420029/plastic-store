@@ -22,6 +22,12 @@ class CategoryController extends Controller
         return view('main.category', compact('categories', 'subcategories'));
     }
 
+    public function indexadmin()
+    {
+        $category = Category::all();
+        return view('admin.category.admincategory', compact('category'));
+    }
+
     // public function indexCust(){
     //     $category = Category::all();
     //     return view('main.category',compact('category'));
@@ -45,7 +51,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = Category::where("name", "=", $request->name)->first();
+        if ($name) {
+            return back()->withInput()->with("message", "Sudah ada");
+        }
+
+        $category = new Category();
+        $category->name = $request->name;
+        $category->save();
+        return redirect()->route("admcategory.index")->with("message", "Insert Successfull");
     }
 
     /**
@@ -71,7 +85,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $category = Category::where("id", "=", $category->id)->first();
+        return view('admin.category.admcatform', ['categories' => $category]);
     }
 
     /**
@@ -83,7 +98,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category = Category::where("id", "=", $category->id)->first();
+        $category->name = $request->name;
+        $category->save();
+        return redirect()->route("admcategory.index")->with("message", "Update Successfull");
     }
 
     /**
@@ -95,5 +113,22 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    public function deleteData(Request $request)
+    {
+        $id = $request->get('id');
+        $data = Category::find($id);
+        $data->delete();
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => 'Kategori berhasil di hapus'
+        ), 200);
+    }
+
+    public function updateCat($id)
+    {
+        $category = Category::where("id", "=", $id)->first();
+        return view('admin.category.updateadmcat', ['categories' => $category]);
     }
 }

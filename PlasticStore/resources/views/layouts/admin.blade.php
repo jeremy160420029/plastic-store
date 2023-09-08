@@ -92,7 +92,7 @@
                                 <span class="hide-menu">Transaksi</span>
                             </a>
                         </li>
-                        @can('is-owner')
+                        {{-- @can('is-owner')
 
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -116,7 +116,7 @@
                                 <span class="hide-menu">Pemilik</span>
                             </a>
                         </li>
-                        @endcan
+                        @endcan --}}
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">Logout</span>
