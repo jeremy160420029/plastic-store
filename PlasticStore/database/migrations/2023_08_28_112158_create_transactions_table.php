@@ -22,6 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->double('total_price');
             $table->double('tax');
             $table->double('total_final');
+            $table->string('status');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

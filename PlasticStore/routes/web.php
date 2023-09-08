@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SubProcessController;
+use App\Http\Controllers\CartController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubProcess;
@@ -31,11 +32,14 @@ Route::get('/', function () {
     return view('home');
 });
 
+//placed here because conflicting, since it gives 404 error if placed in bottom
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout.process');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
@@ -47,6 +51,11 @@ Route::resource("sub_processes", SubProcessController::class);
 Route::resource("products", ProductController::class);
 
 Route::get('/categories/{category}/{subCategory}', [CategoryController::class, 'show'])->name('categories.show');
+
+//checkout
+Route::get('/cart/checkout', [CartController::class, 'showCheckout'])->name('cart.checkout');
+Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::delete('/cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('cart.remove-from-cart');
 
 Route::middleware(['can:is-admin'])->group(function () {
     Route::get('/admin', [ProductController::class, 'dashboard'])->name('dashboard');

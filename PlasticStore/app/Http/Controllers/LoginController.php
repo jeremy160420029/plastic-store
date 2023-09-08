@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\CartItem;
 use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -28,6 +30,12 @@ class LoginController extends Controller
         ]);
 
         if (auth()->attempt($credentials)) {
+            $user = auth()->user();
+
+            // Retrieve cart items count for the authenticated user
+            $cartItemCount = CartItem::where('user_id', $user->id)->count();
+
+            session(['cart' => $cartItemCount]);
 
             return redirect()->route('home')->with('success', 'LOGIN SUCCESS');
         }

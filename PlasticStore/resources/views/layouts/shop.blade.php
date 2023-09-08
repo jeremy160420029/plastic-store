@@ -90,17 +90,16 @@
                             </li>
                             @else
                             <li class="nav-item">
-                                <a class="nav-link position-relative d-flex flex-row align-items-center" href="/cart">
+                                <a class="nav-link position-relative d-flex flex-row align-items-center" href="{{ route('cart.checkout') }}">
                                     <i class="uil uil-shopping-cart"></i>
-                                    @if(is_countable(session('cart')))
-                                    <span class="badge badge-cart bg-primary">{{count(session('cart'))}}</span>
-                                    @else
-                                    <span class="badge badge-cart bg-primary">0</span>
-                                    @endif
+                                    @php
+                                    $cart = session('cart');
+                                    $cartCount = is_array($cart) ? count($cart) : 0;
+                                    @endphp
+                                    <span class="badge badge-cart bg-primary">{{ $cartCount }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-
                             </li>
                             <li class="nav-item d-lg-none">
                                 <button class="hamburger offcanvas-nav-btn"><span></span></button>
