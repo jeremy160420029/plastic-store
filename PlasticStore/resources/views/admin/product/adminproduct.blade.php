@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card-body">
-        <h5 class="card-title fw-semibold mb-4">Daftar Produk</h5>
+        <h5 class="card-title fw-semibold mb-4">Product List</h5>
         <div class="mb-2">
             @if (session('messege') == 'produk dengan nama yang sama sudah ada!')
                 <div class="alert alert-danger">
@@ -13,7 +13,7 @@
                     <strong>{{ session('messege') }}</strong>
                 </div>
             @endif
-            <button class="btn btn-success" onclick="create()">Tambah Produk</button>
+            <button class="btn btn-success" onclick="create()">Add Product</button>
         </div>
         <div class="card">
             <div class="card-body p-4">
@@ -22,13 +22,13 @@
                     <thead class="text-dark fs-4">
                         <tr>
                             <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Id</h6>
+                                <h6 class="fw-semibold mb-0">ID</h6>
                             </th>
                             <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Nama</h6>
+                                <h6 class="fw-semibold mb-0">Name</h6>
                             </th>
                             <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Kategori</h6>
+                                <h6 class="fw-semibold mb-0">Category</h6>
                             </th>
                             <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Brand</h6>
@@ -43,13 +43,13 @@
                                 <h6 class="fw-semibold mb-0">Price</h6>
                             </th> --}}
                             <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Manufactur</h6>
+                                <h6 class="fw-semibold mb-0">Manufacture</h6>
                             </th>
                             {{-- <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Description</h6>
                             </th> --}}
                             <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Aksi</h6>
+                                <h6 class="fw-semibold mb-0">Action</h6>
                             </th>
                         </tr>
                     </thead>
@@ -85,7 +85,7 @@
                                 </td> --}}
                                 <td class="border-bottom-0">
                                     <button type="button" id="btn-edit" onclick="edit({{ $p->id }})"
-                                        class="btn btn-success m-1">Ubah</button>
+                                        class="btn btn-success m-1">Edit</button>
                                     <button type="button" onclick="modalDeleteprod({{ $p->id }})"
                                         class="btn btn-danger m-1"><i class="ti ti-trash"></i></button>
                                 </td>
@@ -103,7 +103,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Edit Produk</h5>
+                    <h5 class="modal-title" id="modalTitle">Edit Product</h5>
 
 
 
@@ -142,7 +142,7 @@
 
         function create() {
             $.get("{{ url('admin/product/show/create_product') }}", {}, function(data, status) {
-                $("#modalTitle").html('Tambah Produk');
+                $("#modalTitle").html('Add Product');
                 $("#modalEdit .modal-body").html(data)
                 $("#modalEdit").modal("show");
 
@@ -192,7 +192,7 @@
         function edit(id) {
             updateId = id
             $.get("{{ url('/admin/product/edit') }}/" + id, function(data) {
-                $("#modalTitle").html('Edit Produk');
+                $("#modalTitle").html('Edit Product');
                 $("#modalEdit .modal-body").html(data)
                 $("#modalEdit").modal("show");
             });

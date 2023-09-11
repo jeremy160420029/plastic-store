@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\SubCategory;
+use App\Models\SubProcess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -51,6 +54,16 @@ class ProductController extends Controller
         //
     }
 
+    public function admincreate()
+    {
+        $category = Category::all();
+        $brand = Brand::all();
+        $subprocess = SubProcess::all();
+        $subcategory = SubCategory::all();
+        // $subcategory = SubCategory::all()->groupBy("categories_id");
+        return view('admin.product.admincreateform',compact('category','brand','subprocess','subcategory'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -59,7 +72,33 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::where('name',$request->name)->first();
+        if($product){
+            return back()->withInput()->with("messege","produk dengan nama yang sama sudah ada!") ;
+        }
+        $product = new Product();
+        $product->name = $request->name;
+        $product->categories_id = $request->category;
+        $product->brands_id = $request->brand;
+        $product->sub_categories_id = $request->sub_category;
+        $product->sub_processes_id = $request->sub_process;
+        $product->price = $request->price;
+        $product->manufacturer = $request->manufacturer;
+        $product->description = $request->description;
+        $product->total_sales = 0;
+        // $product->img_url = $request->img_url;
+
+        $file = $request->file('img');
+        if ($file) {
+            $imgFolder = 'assets/img/products/';
+        $imgFile=$file->getClientOriginalName();
+        $file->move($imgFolder,$imgFile);
+        $product->image = $imgFile;
+        }
+
+
+        $product->save();
+        return redirect()->route("admproduct.index")->with("messege", "Berhasil menambahkan");
     }
 
     /**
@@ -84,9 +123,40 @@ class ProductController extends Controller
         //
     }
 
+    public function adminedit(Product $product)
+    {
+        $category = Category::all();
+        $brand = Brand::all();
+        $subprocess = SubProcess::all();
+        $subcategory = SubCategory::all();
+        // $subcategory = SubCategory::all()->groupBy("categories_id");
+        return view('admin.product.admineditformp',compact('product','category','brand','subprocess','subcategory'));
+    }
+
     public function update(Request $request, Product $product)
     {
-        //
+        $product->name = $request->name;
+        $product->categories_id = $request->category;
+        $product->brands_id = $request->brand;
+        $product->sub_categories_id = $request->sub_category;
+        $product->sub_processes_id = $request->sub_process;
+        $product->price = $request->price;
+        $product->manufacturer = $request->manufacturer;
+        $product->description = $request->description;
+        $product->total_sales = $request->total_sales;
+
+        $file = $request->file('img');
+
+        if ($file) {
+            $file = $request->file('img');
+            $imgFolder = 'assets/img/products/';
+            $imgFile=$file->getClientOriginalName();
+            $file->move($imgFolder,$imgFile);
+            $product->image = $imgFile;
+        }
+
+        $product->save();
+        return redirect()->route('admproduct.index')->with("message","insert successfull");
     }
 
     /**
@@ -95,8 +165,14 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->get('id');
+        $data = Product::find($id);
+        $data->delete();
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => 'Produk berhasil di hapus'
+        ), 200);
     }
 }

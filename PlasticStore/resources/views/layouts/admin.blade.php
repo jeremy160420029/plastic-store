@@ -60,11 +60,11 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('admtype.index') }}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('admbrand.index') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-tag"></i>
                                 </span>
-                                <span class="hide-menu">Tipe</span>
+                                <span class="hide-menu">Brand</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

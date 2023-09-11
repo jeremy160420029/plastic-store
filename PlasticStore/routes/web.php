@@ -62,7 +62,11 @@ Route::delete('/cart/{cartItem}', [CartController::class, 'removeFromCart'])->na
 
 Route::middleware(['can:is-admin'])->group(function () {
     Route::get('/admin', [ProductController::class, 'dashboard'])->name('dashboard');
+
     Route::get('/admin/category', [CategoryController::class, 'indexadmin'])->name('admcategory.index');
+    Route::get('/admin/update_category/{id}', [CategoryController::class, 'updateCat']);
+    Route::post('/admin/delete_category', [CategoryController::class, 'deleteData'])->name('categories.deleteData');
+
     Route::get('/admin/product', [ProductController::class, 'indexadmin'])->name('admproduct.index');
     Route::get('/admin/product/{id}', [ProductController::class, 'adminshow'])->name('admproduct.detail');
     Route::get('/admin/product/edit/{product}', [ProductController::class, 'adminedit']);
@@ -82,13 +86,10 @@ Route::middleware(['can:is-admin'])->group(function () {
     Route::get('/admin/transaction/detail/{id}', [TransactionController::class, 'show']);
     Route::post('/admin/transaction/delete', [TransactionController::class, 'destroy'])->name('transaksi.deleteData');
 
-    Route::get('/admin/type', [TypeController::class, 'indexadmin'])->name('admtype.index');
-    Route::get('/admin/type/editform/{type}', [TypeController::class, 'adminedit']);
-    Route::post('/admin/deletetype', [TypeController::class, 'destroy'])->name('type.delete');
-
-
-    Route::get('/admin/update_category/{id}', [CategoryController::class, 'updateCat']);
-
+    Route::get('/admin/brand', [BrandController::class, 'indexadmin'])->name('admbrand.index');
+    Route::get('/admin/brand/{id}', [BrandController::class, 'updateBrand']);
+    Route::post('/admin/brand/update/{brand}', [BrandController::class, 'update'])->name('brands.update');
+    Route::post('/admin/delete_brand', [BrandController::class, 'deleteData'])->name('brands.deleteData');
 
     Route::post('/admin/create_customer', [CustomerController::class, 'storeCust'])->name('customers.storeCust');
 
@@ -100,13 +101,7 @@ Route::middleware(['can:is-admin'])->group(function () {
 
     Route::get('/admin/update_customer/{id}', [CustomerController::class, 'updateCust']);
 
-    Route::post('/admin/delete_category', [CategoryController::class, 'deleteData'])->name('categories.deleteData');
-
     Route::post('/admin/delete_customer', [CustomerController::class, 'deleteData'])->name('customers.deleteData');
-
-    Route::resource("categories", CategoryController::class);
-    Route::resource("customers", CustomerController::class);
-    Route::resource("type", TypeController::class);
 });
 
 
