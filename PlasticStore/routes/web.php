@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SubProcessController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubProcess;
@@ -40,6 +41,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile');
+Route::post('/profile/update-address', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');

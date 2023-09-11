@@ -8,7 +8,7 @@
     </div>
     @endif
 
-    <div class="container mt-3">
+    <div class="container my-8">
         <table class="table">
             <thead class="table-dark">
                 <tr>
@@ -41,9 +41,25 @@
         <h6>Tax (11%): Rp.{{ $tax }}</h6>
         <h6>Total Price (after tax): Rp.{{ $totalPriceAfterTax }}</h6>
 
+        @if ($user->street_address && $user->city && $user->postal_code)
+        <!-- User has a default address -->
+        <br>
+        <h2>Shipping Address:</h2>
+        <p>{{ $user->street_address }}, {{ $user->city }}, {{ $user->postal_code }}</p>
+        <p><a href="{{ route('profile') }}">Change Address</a></p>
+        @else
+        <!-- User doesn't have an address -->
+        <div class="alert alert-warning text-center">
+            <p>You haven't set a shipping address yet. Please add your shipping address before proceeding with the checkout.</p>
+            <a href="{{ route('profile') }}" class="btn btn-primary">Add Address</a>
+        </div>
+        @endif
+
         <form method="POST" action="{{ route('cart.checkout.process') }}">
             @csrf
-            <button type="submit" class="btn btn-primary">Checkout</button>
+            <button type="submit" class="btn btn-primary" @if (!$user->street_address || !$user->city || !$user->postal_code) disabled @endif>
+                Checkout
+            </button>
         </form>
     </div>
 </section>

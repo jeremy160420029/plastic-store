@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Charge;
 
 class CartController extends Controller
 {
@@ -111,27 +112,25 @@ class CartController extends Controller
         }
 
         $totalPrice = $cartItems->sum(function ($cartItem) {
-            return $cartItem->product->unitprice * $cartItem->quantity;
+            return $cartItem->product->price * $cartItem->quantity;
         });
-
-        // Calculate the tax
         $tax = $totalPrice * 0.11;
-
-        // Calculate the total price after tax
-        $totalPriceAfterTax = $totalPrice + $tax;
+        $ship_city = auth()->user()->city;
+        $deliveryFee = 0; //need changes
+        $total_final = $totalPrice + $tax + $deliveryFee;
 
         // Create a new transaction
         $transaction = new Transaction();
         $transaction->user_id = $user->id;
-        $transaction->payment_method = 'Gopay'; // Default payment method
-        $transaction->shipment_id = 1; // Default shipment ID
-        $transaction->ship_city = 'Surabaya'; // Default ship city
+        $transaction->payment_method = 'BCA'; // Default payment method
+        $transaction->ship_city = $ship_city; // Default ship city
+        $transaction->delivery_fee = $deliveryFee;
         $transaction->total_price = $totalPrice;
         $transaction->tax = $tax;
-        $transaction->total_price_after_tax = $totalPriceAfterTax;
+        $transaction->total_final = $total_final;
+        $transaction->delivery_status = '';
+        $transaction->payment_status = 'Unpaid';
         $transaction->created_at = now();
-        $transaction->point_use = 0; // No points used
-        $transaction->point_gain = 0; // No points earned
         $transaction->save();
 
         // Store the product transactions in the transaction_details table
@@ -140,7 +139,7 @@ class CartController extends Controller
             $transactionDetail->transaction_id = $transaction->id;
             $transactionDetail->product_id = $cartItem->product_id;
             $transactionDetail->quantity = $cartItem->quantity;
-            $transactionDetail->price = $cartItem->product->unitprice;
+            $transactionDetail->price = $cartItem->product->price;
             $transactionDetail->save();
             $product = $cartItem->product;
             $quantity = $cartItem->quantity;
@@ -151,6 +150,13 @@ class CartController extends Controller
         // Clear the cart items for the user
         CartItem::where('user_id', $user->id)->delete();
 
-        return redirect()->route('products.index')->with('success', 'Checkout successful!');
+        // Update the cart count in the session
+        $cart = Session::get('cart', []);
+        if (array_key_exists($cartItem->product_id, $cart)) {
+            unset($cart[$cartItem->product_id]);
+            Session::put('cart', $cart);
+        }
+
+        return redirect()->route('cart.checkout')->with('success', 'Checkout successful!');
     }
 }

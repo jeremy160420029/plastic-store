@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['buyer', 'admin']);
             $table->string('street_address')->nullable();
             $table->string('city')->nullable();
+            $table->double('postal_code')->nullable();
             $table->timestamps();
         });
     }
