@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | FashionStore</title>
+    <title>Admin | Plastic Store</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('/assets/be/images/logos/favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('/assets/be/css/styles.min.css') }}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -23,9 +23,7 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="{{ url('/') }}" class="text-nowrap logo-img">
-                        <img src="{{ asset('assets/fe/img/FS-sm.png') }}"
-                            srcset="{{ asset('assets/fe/img/FS-lg.png') }} 2x" alt="" width="180"
-                            alt="" />
+                        <h1>Plastic Store</h1>
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-8"></i>
@@ -56,7 +54,23 @@
                                 <span>
                                     <i class="ti ti-category"></i>
                                 </span>
-                                <span class="hide-menu">Kategori</span>
+                                <span class="hide-menu">Category</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admsubcategory.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-category"></i>
+                                </span>
+                                <span class="hide-menu">Sub Category</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admsubprocess.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-category"></i>
+                                </span>
+                                <span class="hide-menu">Sub Process</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -72,16 +86,15 @@
                                 <span>
                                     <i class="ti ti-package"></i>
                                 </span>
-                                <span class="hide-menu">Produk</span>
+                                <span class="hide-menu">Product</span>
                             </a>
                         </li>
-
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('admcustomer.index') }}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('admuser.index') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-users"></i>
                                 </span>
-                                <span class="hide-menu">Pelanggan</span>
+                                <span class="hide-menu">Customer / Admin</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -89,7 +102,7 @@
                                 <span>
                                     <i class="ti ti-list-details"></i>
                                 </span>
-                                <span class="hide-menu">Transaksi</span>
+                                <span class="hide-menu">Transaction</span>
                             </a>
                         </li>
                         {{-- @can('is-owner')

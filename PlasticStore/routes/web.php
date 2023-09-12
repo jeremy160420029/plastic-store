@@ -12,6 +12,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SubProcessController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsersController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubProcess;
@@ -72,15 +73,19 @@ Route::middleware(['can:is-admin'])->group(function () {
     Route::get('/admin/product/edit/{product}', [ProductController::class, 'adminedit']);
     Route::post('/admin/product/update/{product}', [ProductController::class, 'update'])->name('product.update');
 
-
     Route::get('/admin/product/show/create_product', [ProductController::class, 'admincreate']);
     Route::post('/admin/product/show/store_product', [ProductController::class, 'store'])->name('products.store');
     Route::post('/admin/productdelete', [ProductController::class, 'destroy'])->name('products.delete');
 
+    Route::get('/admin/subcategories', [SubCategoryController::class, 'indexadmin'])->name('admsubcategory.index');
+    Route::get('/admin/create_subcat', [SubCategoryController::class, 'admincreate']);
+    Route::get('/admin/edit_subcategory/{subCategory}', [SubCategoryController::class, 'adminedit']);
+    Route::post('/admin/update_subcategory/{subCategory}', [SubCategoryController::class, 'update'])->name("sub_category.update");
+    Route::post('/admin/delete_subcategory', [SubCategoryController::class, 'deleteData'])->name('sub_categories.deleteData');
 
-    Route::get('/admin/customer', [CustomerController::class, 'indexcust'])->name('admcustomer.index');
-    Route::get('/admin/staff', [CustomerController::class, 'indexstaff'])->name('admstaff.index');
-    Route::get('/admin/owner', [CustomerController::class, 'indexowner'])->name('admowner.index');
+    Route::get('/admin/subprocesses', [SubProcessController::class, 'indexadmin'])->name('admsubprocess.index');
+    Route::get('/admin/edit_subprocess/{subProcess}', [SubProcessController::class, 'updateSubPro']);
+    Route::post('/admin/delete_subprocess', [SubProcessController::class, 'deleteData'])->name('sub_processes.deleteData');
 
     Route::get('/admin/transaction', [TransactionController::class, 'index'])->name('admtransaction.index');
     Route::get('/admin/transaction/detail/{id}', [TransactionController::class, 'show']);
@@ -91,17 +96,15 @@ Route::middleware(['can:is-admin'])->group(function () {
     Route::post('/admin/brand/update/{brand}', [BrandController::class, 'update'])->name('brands.update');
     Route::post('/admin/delete_brand', [BrandController::class, 'deleteData'])->name('brands.deleteData');
 
-    Route::post('/admin/create_customer', [CustomerController::class, 'storeCust'])->name('customers.storeCust');
+    Route::get('/admin/customer', [UsersController::class, 'index'])->name('admuser.index');
+    Route::post('/admin/update_adm_customer/{id}', [UsersController::class, 'updateAdmCust'])->name('customers.updateAdmCust');
+    Route::get('/admin/update_customer/{id}', [UsersController::class, 'updateCust']);
 
+    Route::post('/admin/create_admin', [UsersController::class, 'store'])->name('admin.store');
+    Route::post('/admin/update_adm_staff/{id}', [UsersController::class, 'updateAdmStaff'])->name('admin.updateAdmStaff');
+    Route::get('/admin/update_admin/{id}', [UsersController::class, 'updateAdm']);
 
-
-    Route::post('/admin/update_adm_customer/{id}', [CustomerController::class, 'updateAdmCust'])->name('customers.updateAdmCust');
-
-
-
-    Route::get('/admin/update_customer/{id}', [CustomerController::class, 'updateCust']);
-
-    Route::post('/admin/delete_customer', [CustomerController::class, 'deleteData'])->name('customers.deleteData');
+    Route::post('/admin/delete_user', [UsersController::class, 'deleteData'])->name('user.deleteData');
 });
 
 

@@ -20,6 +20,12 @@ class SubProcessController extends Controller
         return view('main.process', compact('process'));
     }
 
+    public function indexadmin()
+    {
+        $subProcess = SubProcess::all();
+        return view('admin.subprocess.adminsubproses',compact('subProcess'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +44,15 @@ class SubProcessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = SubProcess::where("name", "=", $request->name)->first();
+        if ($name) {
+            return back()->withInput()->with("message", "Sudah ada");
+        }
+
+        $subprocess = new SubProcess();
+        $subprocess->name = $request->name;
+        $subprocess->save();
+        return redirect()->route("admsubprocess.index")->with("message", "Insert Successfull");
     }
 
     /**
@@ -74,7 +88,16 @@ class SubProcessController extends Controller
      */
     public function update(Request $request, SubProcess $subProcess)
     {
-        //
+        $subprocess = SubProcess::where("id", "=", $subProcess->id)->first();
+        $subprocess->name = $request->name;
+        $subprocess->save();
+        return redirect()->route("admsubprocess.index")->with("message", "Update Successfull");
+    }
+
+    public function updateSubPro($id)
+    {
+        $subprocess = SubProcess::where("id", "=", $id)->first();
+        return view('admin.subprocess.updatesubproses', ['subprocess' => $subprocess]);
     }
 
     /**
@@ -86,5 +109,15 @@ class SubProcessController extends Controller
     public function destroy(SubProcess $subProcess)
     {
         //
+    }
+
+    public function deleteData(Request $request){
+        $id = $request->get('id');
+        $data = SubProcess::find($id);
+        $data->delete();
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => 'Kategori berhasil di hapus'
+        ), 200);
     }
 }

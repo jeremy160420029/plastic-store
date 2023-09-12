@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -12,16 +14,11 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function indexcust()
+    function index()
     {
-        $users = User::all()->where('role','buyer');
-        return view('admin.customer.admincustomer', compact('users'));
-    }
-
-    function indexowner()
-    {
-        $users = User::all()->where('role','owner');
-        return view('admin.owner.adminowner', compact('users'));
+        $customer = User::all()->where('role', 'buyer');
+        $admin = User::all()->where('role', 'admin');
+        return view('admin.user.admincustomer', compact('customer', 'admin'));
     }
 
     /**
@@ -42,7 +39,35 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $email = User::where("email", "=", $request->email)->first();
+        if ($email) {
+            return back()->withInput()->with("message", "Sudah ada");
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'phone_number' => ['required', 'min:10', 'max:13'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->phone_number = $request->phone_number;
+            $user->street_address = $request->street_address;
+            $user->city = $request->city;
+            $user->postal_code = $request->postal_code;
+            $user->role = "admin";
+            $user->save();
+            return redirect()->route("admuser.index")->with("message", "Insert Successfull");
+        }
     }
 
     /**
@@ -79,6 +104,67 @@ class UsersController extends Controller
         //
     }
 
+    public function updateAdmCust(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'phone_number' => ['required', 'min:10', 'max:13'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $user = User::where("id", "=", $id)->first();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->phone_number = $request->phone_number;
+            $user->street_address = $request->street_address;
+            $user->city = $request->city;
+            $user->postal_code = $request->postal_code;
+            $user->save();
+            return redirect()->route("admuser.index")->with("message", "Insert Successfull");
+        }
+    }
+
+    public function updateAdmStaff(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'string', 'min:8'],
+            'phone_number' => ['required', 'min:10', 'max:13'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $user = User::where("id", "=", $id)->first();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->phone_number = $request->phone_number;
+            $user->street_address = $request->street_address;
+            $user->city = $request->city;
+            $user->postal_code = $request->postal_code;
+            $user->save();
+            return redirect()->route("admuser.index")->with("message", "Insert Successfull");
+        }
+    }
+
+    public function updateCust($id)
+    {
+        $cust = User::where("id", "=", $id)->first();
+        return view('admin.user.updatecust', ['cust' => $cust]);
+    }
+
+    public function updateAdm($id)
+    {
+        $admin = User::where("id", "=", $id)->first();
+        return view('admin.user.updateadm', ['admin' => $admin]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -88,5 +174,16 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function deleteData(Request $request)
+    {
+        $id = $request->get('id');
+        $data = User::find($id);
+        $data->delete();
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => 'Kategori berhasil di hapus'
+        ), 200);
     }
 }
