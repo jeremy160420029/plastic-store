@@ -39,7 +39,8 @@
         </table>
         <h6>Total Price (before tax): Rp.{{ $totalPrice }}</h6>
         <h6>Tax (11%): Rp.{{ $tax }}</h6>
-        <h6>Total Price (after tax): Rp.{{ $totalPriceAfterTax }}</h6>
+        <h6>Delivery Fee: Rp.{{ $deliveryFee }}</h6>
+        <h6>Total Price: Rp.{{ $totalPriceAfterTax }}</h6>
 
         @if ($user->street_address && $user->city && $user->postal_code)
         <!-- User has a default address -->
@@ -55,12 +56,61 @@
         </div>
         @endif
 
-        <form method="POST" action="{{ route('cart.checkout.process') }}">
-            @csrf
-            <button type="submit" class="btn btn-primary" @if (!$user->street_address || !$user->city || !$user->postal_code) disabled @endif>
-                Checkout
-            </button>
-        </form>
+        @if (!$cartItems->isEmpty())
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentModal" @if (!$user->street_address || !$user->city || !$user->postal_code) disabled @endif>
+            Checkout
+        </button>
+        @else
+        <div class="alert alert-warning text-center">
+            <p>Your cart is empty. Please add items to your cart before proceeding with the payment.</p>
+        </div>
+        @endif
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="modal-title" id="paymentModalLabel">{{ __('Payment Confirmation BCA') }}</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- Payment confirmation form -->
+                    <form method="POST" action="{{ route('cart.checkout.process') }}" enctype="multipart/form-data">
+                        @csrf
+                        <!-- Add payment confirmation form fields here -->
+                        <input type="hidden" name="transaction_id" value="{{ $transactionId }}">
+                        <h4>Total Payment : Rp.{{ $totalPriceAfterTax }}</h4>
+                        <div class="form-group">
+                            <img src="{{ asset('assets/img/bca.jpg') }}" alt="Bank Account" width="200">
+                        </div>
+                        <div class="form-group">
+                            <label for="payment_proof">Payment Proof (Image)</label>
+                            <input type="file" class="form-control-file @error('payment_proof') is-invalid @enderror" id="payment_proof" name="payment_proof" accept="image/*" required>
+                            @error('payment_proof')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Confirm Payment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+@endsection
+@section('script')
+<script>
+    // Initialize the Bootstrap Modal component
+    $(document).ready(function() {
+        $('#paymentModal').modal();
+    });
+</script>
 @endsection

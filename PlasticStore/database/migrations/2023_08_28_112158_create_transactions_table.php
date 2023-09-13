@@ -24,6 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->double('total_final');
             $table->string('delivery_status');
             $table->string('payment_status');
+            $table->string('image');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

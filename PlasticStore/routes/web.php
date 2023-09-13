@@ -13,6 +13,8 @@ use App\Http\Controllers\SubProcessController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionDetailController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubProcess;
@@ -53,6 +55,9 @@ Route::resource("sub_categories", SubCategoryController::class);
 Route::resource("brands", BrandController::class);
 Route::resource("sub_processes", SubProcessController::class);
 Route::resource("products", ProductController::class);
+
+Route::get('/transactions', [TransactionController::class, 'showTransactions'])->name('transactions');
+Route::get('/transactions/{id}', [TransactionDetailController::class, 'show'])->name('transaction.show');
 
 Route::get('/categories/{category}/{subCategory}', [CategoryController::class, 'show'])->name('categories.show');
 

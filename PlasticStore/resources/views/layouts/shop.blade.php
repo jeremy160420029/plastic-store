@@ -16,7 +16,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -56,6 +56,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url("products")}}">Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('transactions') }}">Transaction</a>
                                 </li>
                             </ul>
                             <!-- /.navbar-nav -->
