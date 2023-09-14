@@ -93,7 +93,7 @@ class ProfileController extends Controller
             $user = User::where("id", "=", $userId)->first();
             $user->password = Hash::make($request->password);
             $user->save();
-            return redirect()->route("change_password")->with("message", "Insert Successfull");
+            return redirect()->route("change_password")->with("message", "Change Password Successfull");
         }
     }
 }

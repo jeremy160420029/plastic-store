@@ -156,7 +156,7 @@ class ProductController extends Controller
         }
 
         $product->save();
-        return redirect()->route('admproduct.index')->with("message","insert successfull");
+        return redirect()->route('admproduct.index')->with("message","update successfull");
     }
 
     /**

@@ -124,7 +124,7 @@ class UsersController extends Controller
             $user->city = $request->city;
             $user->postal_code = $request->postal_code;
             $user->save();
-            return redirect()->route("admuser.index")->with("message", "Insert Successfull");
+            return redirect()->route("admuser.index")->with("message", "Update Successfull");
         }
     }
 
@@ -149,7 +149,7 @@ class UsersController extends Controller
             $user->city = $request->city;
             $user->postal_code = $request->postal_code;
             $user->save();
-            return redirect()->route("admuser.index")->with("message", "Insert Successfull");
+            return redirect()->route("admuser.index")->with("message", "Update Successfull");
         }
     }
 
