@@ -35,6 +35,13 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
+        Gate::define('is-cust', function (User $user) {
+            if ($user->role == "buyer") {
+                return true;
+            } else {
+                return false;
+            }
+        });
         //
     }
 }

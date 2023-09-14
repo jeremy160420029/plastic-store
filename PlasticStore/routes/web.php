@@ -38,7 +38,6 @@ Route::get('/', function () {
 });
 
 //placed here because conflicting, since it gives 404 error if placed in bottom
-Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout.process');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -60,15 +59,18 @@ Route::resource("brands", BrandController::class);
 Route::resource("sub_processes", SubProcessController::class);
 Route::resource("products", ProductController::class);
 
-Route::get('/transactions', [TransactionController::class, 'showTransactions'])->name('transactions');
-Route::get('/transactions/{id}', [TransactionDetailController::class, 'show'])->name('transaction.show');
-
 Route::get('/categories/{category}/{subCategory}', [CategoryController::class, 'show'])->name('categories.show');
 
-//checkout
-Route::get('/cart/checkout', [CartController::class, 'showCheckout'])->name('cart.checkout');
-Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::delete('/cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('cart.remove-from-cart');
+Route::middleware(['can:is-cust'])->group(function () {
+    //checkout
+    Route::get('/cart/checkout', [CartController::class, 'showCheckout'])->name('cart.checkout');
+    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::delete('/cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('cart.remove-from-cart');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout.process');
+
+    Route::get('/transactions', [TransactionController::class, 'showTransactions'])->name('transactions');
+    Route::get('/transactions/{id}', [TransactionDetailController::class, 'show'])->name('transaction.show');
+});
 
 Route::middleware(['can:is-admin'])->group(function () {
     Route::get('/admin', [ProductController::class, 'dashboard'])->name('dashboard');
