@@ -2,30 +2,36 @@
 
 @section('content')
     <div class="card-body">
-        <h5 class="card-title fw-semibold mb-4">Daftar Transaksi</h5>
+        <div class="d-flex flex-row">
+            <h5 class="card-title fw-semibold mb-4 p-2"><a class="nav-link" href="{{url("admin/transaction")}}">Transaction List</a></h5>
+            <h5 class="card-title fw-semibold mb-4 p-2">||</h5>
+            <h5 class="card-title fw-semibold mb-4 p-2"><a class="nav-link" href="{{url("admin/shipment")}}">Shipment</a></h5>
+        </div>
 
         <div class="col-lg-12">
             <div class="row">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <h1 class="card-title">Riwayat Belanja</h1>
+                        <h1 class="card-title">Transaction List</h1>
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
-                                    <th>Waktu Pembelian</th>
-                                    <th>Total Belanja</th>
-                                    <th>Poin yang Diperoleh</th>
-                                    <th>Pajak</th>
-                                    <th>Detail Pembelian</th>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Tax Price</th>
+                                    <th>Total Price</th>
+                                    <th>Payment Status</th>
+                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($transaction as $t)
                                     <tr>
                                         <td>{{ $t->created_at }}</td>
-                                        <td>@currency($t->total)</td>
-                                        <td>{{ $t->received_point }} poin</td>
-                                        <td>@currency($t->pajak)</td>
+                                        <td>{{ $t->user->name }}</td>
+                                        <td>{{ $t->tax }}</td>
+                                        <td>{{ $t->total_final }}</td>
+                                        <td>{{ $t->payment_status }}</td>
                                         <td>
                                             <a href="#" class="btn btn-success" data-bs-toggle="modal"
                                                 onclick="showTransaction({{ $t->id }})"
@@ -48,20 +54,22 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title" id="exampleModalLabel">Detail Transaksi</h1>
+                    <h1 class="modal-title" id="exampleModalLabel">Transaction Detail</h1>
 
                 </div>
                 <div class="modal-body">
                     ...
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="accept()">Accept</button>
+                    <button type="button" class="btn btn-danger" onclick="decline()">Decline</button>
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="modal-profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="modal-profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -75,7 +83,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <div class="card">

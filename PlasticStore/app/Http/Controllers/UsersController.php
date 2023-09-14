@@ -107,7 +107,7 @@ class UsersController extends Controller
     public function updateAdmCust(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'phone_number' => ['required', 'min:10', 'max:13'],
+            'phone_number' => 'required|string|min:10|max:12',
         ]);
 
         if ($validator->fails()) {
@@ -131,8 +131,8 @@ class UsersController extends Controller
     public function updateAdmStaff(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'password' => ['required', 'string', 'min:8'],
-            'phone_number' => ['required', 'min:10', 'max:13'],
+            'password' => 'required|string|min:8',
+            'phone_number' => 'required|string|min:10|max:12',
         ]);
 
         if ($validator->fails()) {

@@ -18,6 +18,7 @@ use App\Http\Controllers\TransactionDetailController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubProcess;
+use App\Models\TransactionDetail;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,10 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile');
-Route::post('/profile/update-address', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');
+Route::get('/change_password', [ProfileController::class, 'showProfilePass'])->name('change_password');
+Route::post('/profile/update_password', [ProfileController::class, 'changePassword'])->name('user.change_password');
+Route::post('/profile/update_address', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');
+Route::post('/profile/update_profile', [ProfileController::class, 'updateProfile'])->name('profile.updateProfile');
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
@@ -93,7 +97,10 @@ Route::middleware(['can:is-admin'])->group(function () {
     Route::post('/admin/delete_subprocess', [SubProcessController::class, 'deleteData'])->name('sub_processes.deleteData');
 
     Route::get('/admin/transaction', [TransactionController::class, 'index'])->name('admtransaction.index');
-    Route::get('/admin/transaction/detail/{id}', [TransactionController::class, 'show']);
+    Route::get('/admin/shipment', [TransactionController::class, 'indexDeliv'])->name('admtransaction.shipment');
+    Route::post('/admin/shipment/update/{transaction}', [TransactionController::class, 'updateDeliv']);
+    Route::post('/admin/shipment/update', [TransactionController::class, 'updateDeliv'])->name('admtransaction.delivery');
+    Route::get('/admin/transaction/detail/{id}', [TransactionDetailController::class, 'showAdm']);
     Route::post('/admin/transaction/delete', [TransactionController::class, 'destroy'])->name('transaksi.deleteData');
 
     Route::get('/admin/brand', [BrandController::class, 'indexadmin'])->name('admbrand.index');

@@ -111,6 +111,7 @@
                                 <h6 class="dropdown-item btn btn-primary rounded-pill dropdown-item">Halo, {{ Auth::user()->name}}</h6>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a class="dropdown-item" href="{{ route('profile') }}"><i class="uil uil-setting"></i> Profile</a></li>
+                                    <li class="nav-item"><a class="dropdown-item" href="{{ route('change_password') }}"><i class="uil uil-setting"></i> Change Password</a></li>
                                     @can('is-admin')
                                     <li class="nav-item"><a class="dropdown-item" href="{{url('/admin')}}"><i class="uil uil-user-md"></i> Admin</a></li>
                                     @endcan

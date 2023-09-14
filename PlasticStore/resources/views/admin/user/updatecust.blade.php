@@ -15,7 +15,7 @@
         <label for="exampleInputEmail1" class="form-label">Phone Number</label>
         <input type="text" name="phone_number" class="form-control" id="exampleInputEmail1"
             aria-describedby="textHelp" value="{{ $cust->phone_number }}">
-        <div id="textHelp" class="form-text">Nomor Telepon minimal 10 dan maksimal 13</div>
+        <div id="textHelp" class="form-text">Nomor Telepon minimal 10 dan maksimal 12</div>
     </div>
     <div class="mb-2">
         <label for="exampleInputEmail1" class="form-label">Address</label>
