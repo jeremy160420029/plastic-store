@@ -23,15 +23,17 @@ class ProductController extends Controller
         return view('main.productlist', compact('product'));
     }
 
-    public function dashboard(){
-        $transaction = DB::select(DB::raw('SELECT u.fname, u.lname, u.username, COUNT(t.id) AS total_pembelian FROM users u JOIN transactions t ON u.id = t.users_id GROUP BY u.id,u.username,u.fname,u.lname ORDER BY total_pembelian DESC'));
+    public function dashboard()
+    {
+        $transaction = DB::select(DB::raw('SELECT u.name, COUNT(t.id) AS total_pembelian FROM users u JOIN transactions t ON u.id = t.user_id GROUP BY u.id, u.name ORDER BY total_pembelian DESC'));
         // dd($transaction);
-        $transactionnow = DB::select(DB::raw('SELECT DISTINCT u.fname,u.lname, p.name, p.price, HOUR(t.created_at) as jam, MINUTE(t.created_at) as menit, DATE(t.created_at) as tanggal FROM transactions t INNER JOIN product_transaction pt ON t.id = pt.transaction_id INNER JOIN products p ON pt.product_id = p.id INNER JOIN users u ON t.users_id = u.id ORDER BY t.created_at DESC'));
+        $transactionnow = DB::select(DB::raw('SELECT DISTINCT u.name, p.name, p.price, HOUR(t.created_at) as jam, MINUTE(t.created_at) as menit, DATE(t.created_at) as tanggal FROM transactions t INNER JOIN transaction_details pt ON t.id = pt.transaction_id INNER JOIN products p ON pt.product_id = p.id INNER JOIN users u ON t.user_id = u.id ORDER BY t.created_at DESC'));
 
-        return view('admin.adminhome',compact('transaction','transactionnow'));
+        return view('admin.adminhome', compact('transaction', 'transactionnow'));
     }
 
-    public function indexCat($id){
+    public function indexCat($id)
+    {
         $product = Product::where("sub_categories_id", $id)->get();
         return view('main.productlist', compact('product'));
     }
@@ -61,7 +63,7 @@ class ProductController extends Controller
         $subprocess = SubProcess::all();
         $subcategory = SubCategory::all();
         // $subcategory = SubCategory::all()->groupBy("categories_id");
-        return view('admin.product.admincreateform',compact('category','brand','subprocess','subcategory'));
+        return view('admin.product.admincreateform', compact('category', 'brand', 'subprocess', 'subcategory'));
     }
 
     /**
@@ -72,9 +74,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::where('name',$request->name)->first();
-        if($product){
-            return back()->withInput()->with("messege","produk dengan nama yang sama sudah ada!") ;
+        $product = Product::where('name', $request->name)->first();
+        if ($product) {
+            return back()->withInput()->with("messege", "produk dengan nama yang sama sudah ada!");
         }
         $product = new Product();
         $product->name = $request->name;
@@ -91,9 +93,9 @@ class ProductController extends Controller
         $file = $request->file('img');
         if ($file) {
             $imgFolder = 'assets/img/products/';
-        $imgFile=$file->getClientOriginalName();
-        $file->move($imgFolder,$imgFile);
-        $product->image = $imgFile;
+            $imgFile = $file->getClientOriginalName();
+            $file->move($imgFolder, $imgFile);
+            $product->image = $imgFile;
         }
 
 
@@ -130,7 +132,7 @@ class ProductController extends Controller
         $subprocess = SubProcess::all();
         $subcategory = SubCategory::all();
         // $subcategory = SubCategory::all()->groupBy("categories_id");
-        return view('admin.product.admineditformp',compact('product','category','brand','subprocess','subcategory'));
+        return view('admin.product.admineditformp', compact('product', 'category', 'brand', 'subprocess', 'subcategory'));
     }
 
     public function update(Request $request, Product $product)
@@ -150,13 +152,13 @@ class ProductController extends Controller
         if ($file) {
             $file = $request->file('img');
             $imgFolder = 'assets/img/products/';
-            $imgFile=$file->getClientOriginalName();
-            $file->move($imgFolder,$imgFile);
+            $imgFile = $file->getClientOriginalName();
+            $file->move($imgFolder, $imgFile);
             $product->image = $imgFile;
         }
 
         $product->save();
-        return redirect()->route('admproduct.index')->with("message","update successfull");
+        return redirect()->route('admproduct.index')->with("message", "update successfull");
     }
 
     /**

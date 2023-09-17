@@ -22,12 +22,13 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::all();
 
-        return view('admin.transaction.admintransaction',compact('transaction'));
+        return view('admin.transaction.admintransaction', compact('transaction'));
     }
 
-    public function indexDeliv(){
-        $deliv = Transaction::all();
-        return view('admin.transaction.admindelivery',compact('deliv'));
+    public function indexDeliv()
+    {
+        $deliv = Transaction::where('payment_status', 'Paid')->get();
+        return view('admin.transaction.admindelivery', compact('deliv'));
     }
 
     // public function updateDeliv($id){
@@ -39,7 +40,8 @@ class TransactionController extends Controller
     //     // return redirect()->route("admtransaction.shipment")->with("message", "Update Successfull");
     // }
 
-    public function updateDeliv(Request $request){
+    public function updateDeliv(Request $request)
+    {
         $id = $request->get('id');
         $data = Transaction::find($id);
         $data->delivery_status = "Delivered";
@@ -61,5 +63,39 @@ class TransactionController extends Controller
             'status' => 'oke',
             'msg' => 'Transaksi berhasil di hapus'
         ), 200);
+    }
+
+    public function acceptTransaction($transactionId)
+    {
+        // Find the transaction by ID
+        $transaction = Transaction::find($transactionId);
+
+        if (!$transaction) {
+            return redirect()->back()->with('error', 'Transaction not found.');
+        }
+
+        // Update the payment status to "paid"
+        $transaction->payment_status = 'Paid';
+        $transaction->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Transaction accepted successfully.');
+    }
+
+    public function declineTransaction($transactionId)
+    {
+        // Find the transaction by ID
+        $transaction = Transaction::find($transactionId);
+
+        if (!$transaction) {
+            return redirect()->back()->with('error', 'Transaction not found.');
+        }
+
+        // Update the payment status to "paid"
+        $transaction->payment_status = 'Declined';
+        $transaction->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Transaction Declined successfully.');
     }
 }
