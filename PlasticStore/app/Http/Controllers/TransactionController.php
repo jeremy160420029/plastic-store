@@ -65,9 +65,10 @@ class TransactionController extends Controller
         ), 200);
     }
 
-    public function acceptTransaction($transactionId)
+    public function acceptTransaction(Request $request)
     {
         // Find the transaction by ID
+        $transactionId = $request->get('id');
         $transaction = Transaction::find($transactionId);
 
         if (!$transaction) {
@@ -76,15 +77,17 @@ class TransactionController extends Controller
 
         // Update the payment status to "paid"
         $transaction->payment_status = 'Paid';
+        $transaction->delivery_status = 'On Delivery';
         $transaction->save();
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Transaction accepted successfully.');
     }
 
-    public function declineTransaction($transactionId)
+    public function declineTransaction(Request $request)
     {
         // Find the transaction by ID
+        $transactionId = $request->get('id');
         $transaction = Transaction::find($transactionId);
 
         if (!$transaction) {

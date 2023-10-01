@@ -41,7 +41,7 @@ class ProductController extends Controller
     public function indexadmin()
     {
         // $product = Product::with('category','type')->get();
-        $product = DB::select(DB::raw('SELECT p.id, p.categories_id, c.name AS category, b.name AS brand, p.name, p.description, p.price, sc.name as subcat, sp.name as subpro, p.image, p.manufacturer, p.updated_at, p.created_at FROM products p INNER JOIN categories c ON p.categories_id = c.id INNER JOIN brands b ON p.brands_id = b.id INNER JOIN sub_categories sc ON p.sub_categories_id = sc.id INNER JOIN sub_processes sp ON p.sub_processes_id = sp.id WHERE p.deleted_at IS NULL'));
+        $product = DB::select(DB::raw('SELECT p.id, p.categories_id, c.name AS category, b.name AS brand, p.name, p.description, p.price, sc.name as subcat, sp.name as subpro, p.image, p.stock, p.updated_at, p.created_at FROM products p INNER JOIN categories c ON p.categories_id = c.id INNER JOIN brands b ON p.brands_id = b.id INNER JOIN sub_categories sc ON p.sub_categories_id = sc.id INNER JOIN sub_processes sp ON p.sub_processes_id = sp.id WHERE p.deleted_at IS NULL'));
         $category = Category::all();
         return view('admin.product.adminproduct', compact('product', 'category'));
     }
@@ -85,6 +85,7 @@ class ProductController extends Controller
         $product->sub_categories_id = $request->sub_category;
         $product->sub_processes_id = $request->sub_process;
         $product->price = $request->price;
+        $product->stock = $request->stock;
         $product->manufacturer = $request->manufacturer;
         $product->description = $request->description;
         $product->total_sales = 0;
@@ -143,6 +144,7 @@ class ProductController extends Controller
         $product->sub_categories_id = $request->sub_category;
         $product->sub_processes_id = $request->sub_process;
         $product->price = $request->price;
+        $product->stock = $request->stock;
         $product->manufacturer = $request->manufacturer;
         $product->description = $request->description;
         $product->total_sales = $request->total_sales;

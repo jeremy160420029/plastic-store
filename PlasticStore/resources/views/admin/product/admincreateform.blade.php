@@ -49,6 +49,10 @@
         <input type="text" name="price" class="form-control" id="exampleInputEmail1" aria-describedby="textHelp">
     </div>
     <div class="mb-2">
+        <label for="exampleInputEmail1" class="form-label">Stock</label>
+        <input type="text" name="stock" class="form-control" id="exampleInputEmail1" aria-describedby="textHelp">
+    </div>
+    <div class="mb-2">
         <label for="exampleInputEmail1" class="form-label">Manufacture</label>
         <input type="text" name="manufacturer" class="form-control" id="exampleInputEmail1" aria-describedby="textHelp">
     </div>

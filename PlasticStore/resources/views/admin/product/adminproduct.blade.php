@@ -42,8 +42,11 @@
                             {{-- <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Price</h6>
                             </th> --}}
-                            <th class="border-bottom-0">
+                            {{-- <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Manufacture</h6>
+                            </th> --}}
+                            <th class="border-bottom-0">
+                                <h6 class="fw-semibold mb-0">Stock</h6>
                             </th>
                             {{-- <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Description</h6>
@@ -77,8 +80,11 @@
                                 {{-- <td class="border-bottom-0">
                                     <h6 class="fw-semibold mb-1">{{ $p->price }}</h6>
                                 </td> --}}
-                                <td class="border-bottom-0">
+                                {{-- <td class="border-bottom-0">
                                     <h6 class="fw-semibold mb-1">{{ $p->manufacturer }}</h6>
+                                </td> --}}
+                                <td class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-1">{{ $p->stock }}</h6>
                                 </td>
                                 {{-- <td class="border-bottom-0">
                                     <h6 class="fw-semibold mb-1">{{ $p->description }}</h6>

@@ -80,6 +80,11 @@
                             aria-describedby="emailHelp" value="{{ $product->price }}">
                     </div>
                     <div class="mb-2">
+                        <label for="exampleInputEmail1" class="form-label">Stock</label>
+                        <input type="number" name="stock" class="form-control" id="typeNumber"
+                            aria-describedby="emailHelp" value="{{ $product->stock }}">
+                    </div>
+                    <div class="mb-2">
                         <label for="exampleInputEmail1" class="form-label">Manufacture</label>
                         <input type="text" name="manufacturer" class="form-control" id="exampleInputEmail1"
                             aria-describedby="emailHelp" value="{{ $product->manufacturer }}">

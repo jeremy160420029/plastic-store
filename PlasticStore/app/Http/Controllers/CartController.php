@@ -164,10 +164,10 @@ class CartController extends Controller
             $transactionDetail->quantity = $cartItem->quantity;
             $transactionDetail->price = $cartItem->product->price;
             $transactionDetail->save();
-            // $product = $cartItem->product;
-            // $quantity = $cartItem->quantity;
-            // $product->total_sales += $quantity;
-            // $product->save();
+            $product = $cartItem->product;
+            $quantity = $cartItem->quantity;
+            $product->stock -= $quantity;
+            $product->save();
         }
 
         // Clear the cart items for the user

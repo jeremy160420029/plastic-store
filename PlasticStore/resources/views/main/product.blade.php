@@ -52,6 +52,7 @@
           <p class="mb-6">{{$product->description}}</p>
           <p class="mb-6">{{$product->brand->name}}</p>
           <p class="mb-6">{{$product->manufacturer}}</p>
+          <p class="mb-6">Stock : {{$product->stock}}</p>
           <div class="row">
             @if(auth()->check())
             @if(auth()->user()->role == 'buyer')

@@ -20,6 +20,7 @@ class ProductSeeder extends Seeder
             'name' => 'LLDPE INNOPLUS LL7410A',
             'description' => 'LLDPE INNOPLUS LL7410A',
             'price' => 3636000,
+            'stock' => 100,
             'brands_id' => 1,
             'categories_id' => 1,
             'sub_categories_id' => 3,

@@ -105,8 +105,8 @@ Route::middleware(['can:is-admin'])->group(function () {
     Route::get('/admin/transaction/detail/{id}', [TransactionDetailController::class, 'showAdm']);
     Route::post('/admin/transaction/delete/', [TransactionController::class, 'destroy'])->name('transaksi.deleteData');
 
-    Route::post('admin/transaction/{transactionId}/accept', [TransactionController::class, 'acceptTransaction'])->name('transaksi.accept');
-    Route::post('admin/transaction/{transactionId}/decline', [TransactionController::class, 'declineTransaction'])->name('transaksi.decline');
+    Route::post('admin/transaction/accept/', [TransactionController::class, 'acceptTransaction'])->name('transaksi.accept');
+    Route::post('admin/transaction/decline/', [TransactionController::class, 'declineTransaction'])->name('transaksi.decline');
 
     Route::get('/admin/brand', [BrandController::class, 'indexadmin'])->name('admbrand.index');
     Route::get('/admin/brand/{id}', [BrandController::class, 'updateBrand']);

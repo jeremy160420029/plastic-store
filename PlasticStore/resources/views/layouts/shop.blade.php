@@ -44,7 +44,7 @@
                     </div>
                     <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
                         <div class="offcanvas-header d-lg-none">
-                            <h3 class="text-white fs-30 mb-0">Sandbox</h3>
+                            <h3 class="text-white fs-30 mb-0">Plastic Store</h3>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
@@ -71,9 +71,9 @@
                             <!-- /.navbar-nav -->
                             <div class="offcanvas-footer d-lg-none">
                                 <div>
-                                    <a href="mailto:first.last@email.com" class="link-inverse">info@email.com</a>
+                                    <a href="mailto:#" class="link-inverse">junius@cahayamakmurwijaya.com</a>
                                     <br />
-                                    00 (123) 456 78 90 <br />
+                                    082244776001 <br />
                                     <nav class="nav social social-white mt-4">
                                         <a href="#"><i class="uil uil-twitter"></i></a>
                                         <a href="#"><i class="uil uil-facebook-f"></i></a>
