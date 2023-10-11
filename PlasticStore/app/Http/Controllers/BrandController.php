@@ -22,7 +22,7 @@ class BrandController extends Controller
     public function indexadmin()
     {
         $brand = Brand::all();
-        return view('admin.brand.adminbrand',compact('brand'));
+        return view('admin.brand.adminbrand', compact('brand'));
     }
 
     /**
@@ -54,9 +54,9 @@ class BrandController extends Controller
         $file = $request->file('img');
         if ($file) {
             $imgFolder = 'assets/img/brands/';
-        $imgFile=$file->getClientOriginalName();
-        $file->move($imgFolder,$imgFile);
-        $category->image = $imgFile;
+            $imgFile = $file->getClientOriginalName();
+            $file->move($imgFolder, $imgFile);
+            $category->image = $imgFile;
         }
 
         $category->save();
@@ -109,8 +109,8 @@ class BrandController extends Controller
         if ($file) {
             $file = $request->file('img');
             $imgFolder = 'assets/img/brands/';
-            $imgFile=$file->getClientOriginalName();
-            $file->move($imgFolder,$imgFile);
+            $imgFile = $file->getClientOriginalName();
+            $file->move($imgFolder, $imgFile);
             $brand->image = $imgFile;
         }
 
@@ -132,8 +132,10 @@ class BrandController extends Controller
     public function deleteData(Request $request)
     {
         $id = $request->get('id');
-        $data = Brand::find($id);
-        $data->delete();
+        $dataBrand = Brand::find($id);
+        $dataProd = Product::where("brands_id", "=", $id);
+        $dataProd->delete();
+        $dataBrand->delete();
         return response()->json(array(
             'status' => 'oke',
             'msg' => 'Kategori berhasil di hapus'

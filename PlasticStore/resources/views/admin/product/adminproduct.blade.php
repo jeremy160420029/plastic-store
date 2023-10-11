@@ -194,7 +194,6 @@
             })
         }
 
-
         function edit(id) {
             updateId = id
             $.get("{{ url('/admin/product/edit') }}/" + id, function(data) {

@@ -23,7 +23,7 @@ class SubProcessController extends Controller
     public function indexadmin()
     {
         $subProcess = SubProcess::all();
-        return view('admin.subprocess.adminsubproses',compact('subProcess'));
+        return view('admin.subprocess.adminsubproses', compact('subProcess'));
     }
 
     /**
@@ -111,10 +111,13 @@ class SubProcessController extends Controller
         //
     }
 
-    public function deleteData(Request $request){
+    public function deleteData(Request $request)
+    {
         $id = $request->get('id');
-        $data = SubProcess::find($id);
-        $data->delete();
+        $dataSubPro = SubProcess::find($id);
+        $dataProd = Product::where("sub_processes_id", "=", $id);
+        $dataProd->delete();
+        $dataSubPro->delete();
         return response()->json(array(
             'status' => 'oke',
             'msg' => 'Kategori berhasil di hapus'

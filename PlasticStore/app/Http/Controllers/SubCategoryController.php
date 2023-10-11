@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
@@ -22,7 +23,7 @@ class SubCategoryController extends Controller
     {
         $subcategory = SubCategory::all();
         $category = Category::all();
-        return view('admin.subcategory.adminsubcategory',compact('subcategory','category'));
+        return view('admin.subcategory.adminsubcategory', compact('subcategory', 'category'));
     }
 
     /**
@@ -35,9 +36,10 @@ class SubCategoryController extends Controller
         //
     }
 
-    public function admincreate(){
+    public function admincreate()
+    {
         $category = Category::all();
-        return view('admin.subcategory.admincreatesubcat',compact('category'));
+        return view('admin.subcategory.admincreatesubcat', compact('category'));
     }
 
     /**
@@ -82,9 +84,10 @@ class SubCategoryController extends Controller
         //
     }
 
-    public function adminedit(SubCategory $subCategory){
+    public function adminedit(SubCategory $subCategory)
+    {
         $category = Category::all();
-        return view('admin.subcategory.updatesubcat',compact('subCategory','category'));
+        return view('admin.subcategory.updatesubcat', compact('subCategory', 'category'));
     }
 
     /**
@@ -113,10 +116,13 @@ class SubCategoryController extends Controller
         //
     }
 
-    public function deleteData(Request $request){
+    public function deleteData(Request $request)
+    {
         $id = $request->get('id');
-        $data = SubCategory::find($id);
-        $data->delete();
+        $dataSubCat = SubCategory::find($id);
+        $dataProd = Product::where("sub_categories_id", "=", $id);
+        $dataProd->delete();
+        $dataSubCat->delete();
         return response()->json(array(
             'status' => 'oke',
             'msg' => 'Kategori berhasil di hapus'

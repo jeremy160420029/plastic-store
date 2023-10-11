@@ -118,8 +118,12 @@ class CategoryController extends Controller
     public function deleteData(Request $request)
     {
         $id = $request->get('id');
-        $data = Category::find($id);
-        $data->delete();
+        $dataCat = Category::find($id);
+        $dataSubCat = SubCategory::where("categories_id", "=", $id);
+        $dataProd = Product::where("categories_id", "=", $id);
+        $dataSubCat->delete();
+        $dataProd->delete();
+        $dataCat->delete();
         return response()->json(array(
             'status' => 'oke',
             'msg' => 'Kategori berhasil di hapus'
