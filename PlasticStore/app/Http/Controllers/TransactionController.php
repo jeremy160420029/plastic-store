@@ -80,8 +80,13 @@ class TransactionController extends Controller
         $transaction->delivery_status = 'On Delivery';
         $transaction->save();
 
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => 'Transaksi berhasil di terima'
+        ), 200);
+
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Transaction accepted successfully.');
+        // return redirect()->back()->with('success', 'Transaction accepted successfully.');
     }
 
     public function declineTransaction(Request $request)
@@ -98,7 +103,12 @@ class TransactionController extends Controller
         $transaction->payment_status = 'Declined';
         $transaction->save();
 
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => 'Transaksi berhasil di tolak'
+        ), 200);
+
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Transaction Declined successfully.');
+        // return redirect()->back()->with('success', 'Transaction Declined successfully.');
     }
 }

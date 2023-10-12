@@ -45,25 +45,12 @@
                                         <td>{{ $t->payment_status }}</td>
                                         <td>
                                             <div class="btn-group">
-                                                {{-- <form method="POST" action="{{ route('transaksi.accept', ['transactionId' => $t->id]) }}"> --}}
-                                                {{-- <form method="POST" onclick="accept({{ $t->id }})">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="btn btn-success custom-btn">Accept</button>
-                                                </form> --}}
 
                                                 <a href="#" class="btn btn-success custom-btn" data-bs-toggle="modal"
                                                     onclick="accept({{ $t->id }})">Accept</a>
 
                                                 <a href="#" class="btn btn-danger custom-btn" data-bs-toggle="modal"
                                                     onclick="decline({{ $t->id }})">Decline</a>
-
-                                                {{-- <form method="POST" action="{{ route('transaksi.decline', ['transactionId' => $t->id]) }}"> --}}
-                                                {{-- <form method="POST" onclick="decline({{ $t->id }})">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="btn btn-danger custom-btn">Decline</button>
-                                                </form> --}}
 
                                                 <a href="#" class="btn btn-success custom-btn" data-bs-toggle="modal"
                                                     onclick="showTransaction({{ $t->id }})"
@@ -131,71 +118,93 @@
             }
 
             function accept(id) {
-                Swal.fire({
-                    title: 'Apakah Anda yakin ingin menerima transaksi ini?',
-                    text: "Anda tidak bisa mengembalikan perubahan ini!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Iya, saya yakin',
-                    cancelButtonText: 'Batalkan'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.post({
-                            type: 'POST',
-                            url: '{{ route('transaksi.accept') }}',
-                            data: {
-                                '_token': '<?php echo csrf_token(); ?>',
-                                'id': id
-                            },
-                            success: function(data) {
-                                if (data.status == 'oke') {
-                                    location.reload();
+                // Lakukan logika untuk menerima tindakan di sini
+
+                // Periksa payment_status
+                if ("{{ $t->payment_status }}" === "Paid" || "{{ $t->payment_status }}" === "Declined") {
+                    Swal.fire({
+                        title: 'Tidak dapat menerima transaksi ini',
+                        text: 'Payment status sudah "Paid" atau "Declined"',
+                        icon: 'error',
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Apakah Anda yakin ingin menerima transaksi ini?',
+                        text: "Anda tidak bisa mengembalikan perubahan ini!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Iya, saya yakin',
+                        cancelButtonText: 'Batalkan'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.post({
+                                type: 'POST',
+                                url: '{{ route('transaksi.accept') }}',
+                                data: {
+                                    '_token': '<?php echo csrf_token(); ?>',
+                                    'id': id
+                                },
+                                success: function(data) {
+                                    if (data.status == 'oke') {
+                                        location.reload();
+                                    }
                                 }
-                            }
-                        });
-                        Swal.fire(
-                            'Berhasil Diterima!',
-                            'Transaksi berhasil diterima.',
-                            'success'
-                        )
-                    }
-                })
+                            });
+                            Swal.fire(
+                                'Berhasil Diterima!',
+                                'Transaksi berhasil diterima.',
+                                'success'
+                            )
+                        }
+                    })
+                }
             }
 
             function decline(id) {
-                Swal.fire({
-                    title: 'Apakah Anda yakin ingin menolak transaksi ini?',
-                    text: "Anda tidak bisa mengembalikan perubahan ini!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Iya, saya yakin',
-                    cancelButtonText: 'Batalkan'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.post({
-                            type: 'POST',
-                            url: '{{ route('transaksi.decline') }}',
-                            data: {
-                                '_token': '<?php echo csrf_token(); ?>',
-                                'id': id
-                            },
-                            success: function(data) {
-                                if (data.status == 'oke') {
-                                    location.reload();
+                // Lakukan logika untuk menolak tindakan di sini
+
+                // Periksa payment_status
+                if ("{{ $t->payment_status }}" === "Paid" || "{{ $t->payment_status }}" === "Declined") {
+                    Swal.fire({
+                        title: 'Tidak dapat menolak transaksi ini',
+                        text: 'Payment status sudah "Paid" atau "Declined"',
+                        icon: 'error',
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Apakah Anda yakin ingin menolak transaksi ini?',
+                        text: "Anda tidak bisa mengembalikan perubahan ini!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Iya, saya yakin',
+                        cancelButtonText: 'Batalkan'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.post({
+                                type: 'POST',
+                                url: '{{ route('transaksi.decline') }}',
+                                data: {
+                                    '_token': '<?php echo csrf_token(); ?>',
+                                    'id': id
+                                },
+                                success: function(data) {
+                                    if (data.status == 'oke') {
+                                        location.reload();
+                                    }
                                 }
-                            }
-                        });
-                        Swal.fire(
-                            'Berhasil Ditolak!',
-                            'Transaksi berhasil ditolak.',
-                            'success'
-                        )
-                    }
-                })
+                            });
+                            Swal.fire(
+                                'Berhasil Ditolak!',
+                                'Transaksi berhasil ditolak.',
+                                'success'
+                            )
+                        }
+                    })
+                }
             }
 
             function modalDeleteTrans(id) {
