@@ -6,6 +6,11 @@
 
 @section('content')
 <section class="wrapper bg-gray">
+@if (session('success'))
+    <div class="alert alert-success text-center" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px;">
+        {{ session('success') }}
+    </div>
+    @endif
   <section class="wrapper bg-gray">
     <div class="container py-3 py-md-5">
       <nav class="d-inline-block" aria-label="breadcrumb">

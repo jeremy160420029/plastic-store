@@ -36,9 +36,16 @@ class CartController extends Controller
             ->first();
 
         if ($cartItem) {
-            // Increment the quantity by the specified amount
+            $totalQuantityInCart = $cartItem->quantity + $quantity;
+
+            if ($totalQuantityInCart > $product->stock) {
+                return redirect()->back()->with('success', 'Not enough stock');
+            }
             $cartItem->increment('quantity', $quantity);
         } else {
+            if ($quantity > $product->stock) {
+                return redirect()->back()->with('success', 'Not enough stock.');
+            }    
             // Create a new cart item if it doesn't exist
             $cartItem = new CartItem([
                 'user_id' => $user->id,
