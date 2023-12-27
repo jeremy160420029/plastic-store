@@ -32,7 +32,7 @@
                     <div class="card-body p-11 text-center">
                         <h2 class="mb-3 text-start">Selamat Datang</h2>
                         <p class="lead mb-6 text-start">Gunakan email & password untuk login</p>
-                        <form class="text-start mb-3" method="POST" action="{{ route('login') }}">
+                        <form class="text-start mb-3" method="POST" action="{{ route('login.post') }}">
                             @csrf
                             <div class="form-floating mb-4">
                                 <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus id='loginEmail' placeholder="email">
