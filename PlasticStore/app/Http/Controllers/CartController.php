@@ -55,15 +55,6 @@ class CartController extends Controller
             $cartItem->save();
         }
 
-        // Update the session cart data
-        $cart = Session::get('cart', []);
-        if (array_key_exists($product->id, $cart)) {
-            $cart[$product->id] += $quantity;
-        } else {
-            $cart[$product->id] = $quantity;
-        }
-        Session::put('cart', $cart);
-
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Product added to cart successfully.');
     }
@@ -98,13 +89,6 @@ class CartController extends Controller
         if ($cartItem->user_id === $user->id) {
             // Delete the cart item
             $cartItem->delete();
-
-            // Update the cart count in the session
-            $cart = Session::get('cart', []);
-            if (array_key_exists($cartItem->product_id, $cart)) {
-                unset($cart[$cartItem->product_id]);
-                Session::put('cart', $cart);
-            }
         }
 
         // Redirect
@@ -179,13 +163,6 @@ class CartController extends Controller
 
         // Clear the cart items for the user
         CartItem::where('user_id', $user->id)->delete();
-
-        // Update the cart count in the session
-        $cart = Session::get('cart', []);
-        if (array_key_exists($cartItem->product_id, $cart)) {
-            unset($cart[$cartItem->product_id]);
-            Session::put('cart', $cart);
-        }
 
         return redirect()->route('cart.checkout')->with('success', 'Checkout successful! Please wait for admin confirmation!');
     }

@@ -104,11 +104,6 @@
                                         <a class="nav-link position-relative d-flex flex-row align-items-center"
                                             href="{{ route('cart.checkout') }}">
                                             <i class="uil uil-shopping-cart"></i>
-                                            @php
-                                                $cart = session('cart');
-                                                $cartCount = is_array($cart) ? count($cart) : 0;
-                                            @endphp
-                                            <span class="badge badge-cart bg-primary">{{ $cartCount }}</span>
                                         </a>
                                     </li>
                                 @endcan
